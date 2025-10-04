@@ -16,13 +16,27 @@
 
 ---
 
+## 📊 Repository Status
+
+<p align="center">
+  <img src="https://img.shields.io/github/stars/MLILA17/DML-MD?label=Stars&style=flat-square&color=yellow" />
+  <img src="https://img.shields.io/github/forks/MLILA17/DML-MD?label=Forks&style=flat-square&color=green" />
+  <img src="https://img.shields.io/github/issues/MLILA17/DML-MD?label=Issues&style=flat-square&color=orange" />
+  <img src="https://img.shields.io/github/pull-requests/MLILA17/DML-MD?label=Pull%20Requests&style=flat-square&color=blue" />
+  <img src="https://img.shields.io/github/last-commit/MLILA17/DML-MD?label=Last%20Commit&style=flat-square&color=red" />
+  <img src="https://img.shields.io/github/languages/top/MLILA17/DML-MD?label=Main%20Language&style=flat-square&color=purple" />
+  <img src="https://img.shields.io/github/license/MLILA17/DML-MD?label=License&style=flat-square&color=lightgrey" />
+</p>
+
+---
+
 ## 🚀 Deploy DML-MD in 3 Easy Steps
 
 <div align="center">
 
 ### 🔹 Step 1: Fork & Star This Repository
 
-💡 *Support the project by forking and starring the repo. It really helps us grow!*
+💡 *Support the project by forking and starring the repo — it really helps!*
 
 <div style="background:#111111; padding:15px; border-radius:10px; border-left:4px solid #FF00FF;">
   <p style="color:#00FFFF;">Click below to fork and star 👇</p>
@@ -63,7 +77,7 @@
 
 ## 👥 Fork Tracker (Active Developers)
 
-> 🧠 *Here’s a list of all members who have forked DML-MD:*
+> 🧠 *Below are all the developers who forked this repository:*
 
 <p align="center">
   <a href="https://github.com/MLILA17/DML-MD/network/members" target="_blank">
@@ -71,8 +85,16 @@
   </a>
 </p>
 
+---
+
+## 🧑‍💻 Contributors
+
+> ✨ Thanks to these amazing people for contributing to **DML-MD**!
+
 <p align="center">
-  <img src="https://ghchart.rshah.org/MLILA17" alt="MLILA17 GitHub Activity" />
+  <a href="https://github.com/MLILA17/DML-MD/graphs/contributors">
+    <img src="https://contrib.rocks/image?repo=MLILA17/DML-MD" alt="Contributors" />
+  </a>
 </p>
 
 ---
