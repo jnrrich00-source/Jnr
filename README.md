@@ -1,86 +1,100 @@
-<h2 align="center" style="color: #FF6347; text-shadow: 2px 2px 4px rgba(0,0,0,0.3); animation: glow 2s infinite alternate;">WELCOME TO DML-MD
+<h1 align="center" style="color:#FF6347; text-shadow: 2px 2px 8px rgba(255,99,71,0.8);">
+✨ WELCOME TO DML-MD ✨
+</h1>
 
-</h2>
-<h3 align="center" style="color: #1BAFBA; font-weight: bold;">Powerful WhatsApp Bot for Tanzania</h3>
+<h3 align="center" style="color:#1BAFBA; font-weight:bold;">
+🔥 Powerful WhatsApp Bot for Tanzania 🔥
+</h3>
 
 <p align="center">
   <img src="https://readme-typing-svg.herokuapp.com?font=Fira+Code&weight=600&size=26&duration=3000&pause=1000&color=FF6347&center=true&width=900&height=100&lines=HELLO+WORLD!+👋;MEET+DML-MD+🤖;ADVANCED+WHATSAPP+BOT+EXPERIENCE+⚡;MADE+WITH+PASSION+BY+DML+💻;OFFICIALLY+TANZANIAN+BOT+🎉" alt="Typing Animation">
 </p>
 
 <p align="center">
-  <img alt="DML-MD" width="700" height="300" src="https://files.catbox.moe/juhq1l.jpg">
+  <img alt="DML-MD Banner" width="700" height="300" src="https://files.catbox.moe/juhq1l.jpg">
 </p>
 
+---
 
-
-
-
-
-
-
-
-
-
-## 🛡 How to Deploy in 3 Simple Steps
-
-
+## 🚀 Deploy DML-MD in 3 Easy Steps
 
 <div align="center">
 
-### 🔹 Step 1: Fork & Star This Repo
-Help support the project by clicking the buttons below. Fork it to your GitHub and give it a star!
-<div style="background: #111111; padding: 15px; border-radius: 10px; border-left: 3px solid #ff00ff;">
-  <p style="color: #00ffff;">First star & Fork repo using button Below !</p>
+### 🔹 Step 1: Fork & Star This Repository
+
+💡 *Support the project by forking and starring the repo. It really helps us grow!*
+
+<div style="background:#111111; padding:15px; border-radius:10px; border-left:4px solid #FF00FF;">
+  <p style="color:#00FFFF;">Click below to fork and star 👇</p>
   <a href='https://github.com/MLILA17/DML-MD/fork' target="_blank">
     <img src='https://img.shields.io/badge/FORK_REPOSITORY-008000?style=for-the-badge&logo=github&logoColor=white&labelColor=000000'/>
   </a>
 </div>
 
-
-
-
-
-
-[![Fork](https://img.shields.io/github/forks/MLILA17/DML-MD?label=Fork&style=for-the-badge&logo=git)](https://github.com/MLILA17/DML-MD/fork)
+[![Fork](https://img.shields.io/github/forks/MLILA17/DML-MD?label=Fork&style=for-the-badge&logo=github)](https://github.com/MLILA17/DML-MD/fork)
 [![Star](https://img.shields.io/github/stars/MLILA17/DML-MD?label=Star&style=for-the-badge&logo=github)](https://github.com/MLILA17/DML-MD/stargazers)
-
 
 ---
 
 ### 🔹 Step 2: Generate Session ID
-You need a session to connect your bot. Choose your preferred method  I recommended using server 1
 
-[![Scan QR Code](https://img.shields.io/badge/🔍_SCAN_QR-FF6347?style=for-the-badge&logo=qr-code&logoColor=white)](https://dml-sessionsite.onrender.com/qr) 
+📱 You’ll need a session to connect your bot.  
+✅ *Recommended: Use Server 1 (Fast & Reliable)*
 
-[![Pair Device](https://img.shields.io/badge/⚡_SERVER_1-8A2BE2?style=for-the-badge&logo=windows&logoColor=white&labelColor=1A1A2E&color=9400D3)](https://dml-sessionsite.onrender.com/)
+[![Scan QR Code](https://img.shields.io/badge/🔍_SCAN_QR-FF6347?style=for-the-badge&logo=qr-code&logoColor=white)](https://dml-sessionsite.onrender.com/qr)
+
+[![Pair Device (Server 1)](https://img.shields.io/badge/⚡_SERVER_1-8A2BE2?style=for-the-badge&logo=windows&logoColor=white)](https://dml-sessionsite.onrender.com/)
+
+[![Pair Device (Server 2)](https://img.shields.io/badge/🚀_SERVER_2-4CAF50?style=for-the-badge&logo=link&logoColor=white)](https://two-vz60.onrender.com)
+
 ---
-[![Pair Device](https://img.shields.io/badge/🚀_SERVER_2-4CAF50?style=for-the-badge&logo=link&logoColor=white)](https://two-vz60.onrender.com)
----
+
 ### 🔹 Step 3: Deploy with One Click
-Easily deploy to Heroku with the button below:
 
-[![Deploy](https://img.shields.io/badge/DEPLOY_TO_HEROKU-430098?style=for-the-badge&logo=heroku&logoColor=white)](https://verify-dmlbot.vercel.app)
+🚀 *Choose your preferred deployment platform below:*
 
+[![Deploy to Heroku](https://img.shields.io/badge/DEPLOY_TO_HEROKU-430098?style=for-the-badge&logo=heroku&logoColor=white)](https://verify-dmlbot.vercel.app)
 
-[![Deploy](https://img.shields.io/badge/DEPLOY_TO_RAILWAY-430098?style=for-the-badge&logo=railway&logoColor=white)](https://railway.com/new)
-
-
-
-
-
-
-
+[![Deploy to Railway](https://img.shields.io/badge/DEPLOY_TO_RAILWAY-0B0B45?style=for-the-badge&logo=railway&logoColor=white)](https://railway.com/new)
 
 </div>
 
 ---
 
-## 🌐 Join The Community
+## 👥 Fork Tracker (Active Developers)
+
+> 🧠 *Here’s a list of all members who have forked DML-MD:*
 
 <p align="center">
-
-  <a href="https://whatsapp.com/channel/0029Vb2hoPpDZ4Lb3mSkVI3C">
-    <img src="https://img.shields.io/badge/WHATSAPP_CHANNEL-075E54?style=for-the-badge&logo=whatsapp&logoColor=white" width="250">
+  <a href="https://github.com/MLILA17/DML-MD/network/members" target="_blank">
+    <img src="https://img.shields.io/badge/View_All_Forkers-24292E?style=for-the-badge&logo=github&logoColor=white">
   </a>
 </p>
 
+<p align="center">
+  <img src="https://ghchart.rshah.org/MLILA17" alt="MLILA17 GitHub Activity" />
+</p>
+
+---
+
+## 🌐 Join the DML Community
+
+<p align="center">
+  <a href="https://whatsapp.com/channel/0029Vb2hoPpDZ4Lb3mSkVI3C" target="_blank">
+    <img src="https://img.shields.io/badge/WHATSAPP_CHANNEL-075E54?style=for-the-badge&logo=whatsapp&logoColor=white" width="260">
+  </a>
+</p>
+
+---
+
+## 💡 Developer Info
+
+👤 **Author:** [Daudi Musa Mlila](https://github.com/MLILA17)  
+📍 *Tanzania | DIT Computer Engineering Student*  
+💻 *Passionate about Tech, Automation, and Innovation*
+
+---
+
+<p align="center">
+  <b>⭐ DML-MD | All rights reserved © 2025</b>
+</p>
