@@ -36,7 +36,7 @@
 
 ### 🔹 Step 1: Fork & Star This Repository
 
-💡 *Support the project by forking and starring the repo — it really helps!*
+💡 *Support the project by forking and starring  it helps a lot!*
 
 <div style="background:#111111; padding:15px; border-radius:10px; border-left:4px solid #FF00FF;">
   <p style="color:#00FFFF;">Click below to fork and star 👇</p>
@@ -77,7 +77,7 @@
 
 ## 👥 Fork Tracker (Active Developers)
 
-> 🧠 *Below are all the developers who forked this repository:*
+> 🧠 *All developers who forked this repository can be viewed here:*
 
 <p align="center">
   <a href="https://github.com/MLILA17/DML-MD/network/members" target="_blank">
@@ -87,9 +87,21 @@
 
 ---
 
+## 🏆 Top Forkers Leaderboard
+
+> 🌟 *These are the latest amazing developers who forked DML-MD:*
+
+<p align="center">
+  <a href="https://github.com/MLILA17/DML-MD/network/members">
+    <img src="https://reporoster.com/forks/MLILA17/DML-MD" alt="Forkers Leaderboard" />
+  </a>
+</p>
+
+---
+
 ## 🧑‍💻 Contributors
 
-> ✨ Thanks to these amazing people for contributing to **DML-MD**!
+> ✨ Thanks to these incredible people for contributing to **DML-MD**!
 
 <p align="center">
   <a href="https://github.com/MLILA17/DML-MD/graphs/contributors">
