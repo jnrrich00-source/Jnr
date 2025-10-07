@@ -43,9 +43,6 @@ cmd({
         await reply(`❌ *Error enhancing image:* ${error.message || "Unknown error"}`);
     }
 });
-
-
-// 🧹 Command: removebg (Background Remover)
 cmd({
     pattern: "removebg",
     alias: ["rmbg", "bgremove"],
@@ -63,25 +60,39 @@ cmd({
             return await reply("❌ Please reply to an image to remove background.");
         }
 
+        // Download image buffer
         const buffer = await conn.downloadMediaMessage(imageMsg);
         await reply("⏳ Removing background...");
 
-        // ✅ Remove.bg API call with your key
+        // Use Remove.bg official API with your key
         const form = new FormData();
         form.append("image_file", buffer, "input.jpg");
         form.append("size", "auto");
 
         const { data } = await axios.post("https://api.remove.bg/v1.0/removebg", form, {
             headers: {
-                "X-Api-Key": "AS2LjSJAGVUjjCw2tjp4LkNW",
+                "X-Api-Key": "AS2LjSJAGVUjjCw2tjp4LkNW", // Your RemoveBG API Key
                 ...form.getHeaders(),
             },
             responseType: "arraybuffer",
         });
 
+        // Send the result image
         await conn.sendMessage(
             from,
-            { image: data, caption: "✅ *Background Removed Successfully!*" },
+            { 
+                image: data, 
+                caption: "✅ *Background Removed Successfully!*",
+                contextInfo: { 
+                    forwardingScore: 999,
+                    isForwarded: true,
+                    forwardedNewsletterMessageInfo: {
+                        newsletterJid: "120363401025139680@newsletter",
+                        newsletterName: "DML-BG",
+                        serverMessageId: 13
+                    }
+                }
+            },
             { quoted: mek }
         );
 
@@ -90,60 +101,5 @@ cmd({
     } catch (error) {
         console.error("RemoveBG Error:", error.response?.data || error.message);
         await reply(`❌ *Error removing background:* ${error.message || "Unknown error"}`);
-    }
-});
-
-
-// 🎨 Command: cartoon (AI Cartoon Filter - public model)
-cmd({
-    pattern: "cartoon",
-    alias: ["anime", "toonify"],
-    react: "🎨",
-    desc: "Turn image into cartoon/anime style",
-    category: "tools",
-    use: ".cartoon (reply image)",
-    filename: __filename
-}, async (conn, m, mek, { from, reply }) => {
-    try {
-        const quoted = mek.message?.extendedTextMessage?.contextInfo?.quotedMessage;
-        const imageMsg = quoted?.imageMessage;
-
-        if (!imageMsg) {
-            return await reply("❌ Please reply to an image to turn it into cartoon style.");
-        }
-
-        await reply("⏳ Turning image into cartoon/anime style...");
-
-        // Download replied image
-        const buffer = await conn.downloadMediaMessage(imageMsg);
-
-        // Upload buffer to HuggingFace Cartoonize API (public model)
-        const form = new FormData();
-        form.append("file", buffer, "cartoon.jpg");
-
-        const { data } = await axios.post(
-            "https://api-inference.huggingface.co/models/hustvl/cartoonize",
-            form,
-            {
-                headers: {
-                    Authorization: "Bearer hf_token_placeholder", // Optional token, public model works without it
-                    ...form.getHeaders(),
-                },
-                responseType: "arraybuffer",
-            }
-        );
-
-        // Send cartoon image
-        await conn.sendMessage(
-            from,
-            { image: data, caption: "✅ *Cartoon Style Applied!*" },
-            { quoted: mek }
-        );
-
-        await conn.sendMessage(from, { react: { text: '🎨', key: mek.key } });
-
-    } catch (error) {
-        console.error("Cartoon Error:", error.message);
-        await reply(`❌ *Error converting image:* ${error.message || "Unknown error"}`);
     }
 });
