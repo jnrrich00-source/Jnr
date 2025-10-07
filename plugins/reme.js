@@ -20,13 +20,20 @@ cmd({
             return await reply("❌ Please reply to an image to enhance it (8K HD).");
         }
 
-        const media = await conn.downloadAndSaveMediaMessage(imageMsg);
+        // ✅ Download image as Buffer instead of file path
+        const buffer = await conn.downloadMediaMessage(imageMsg);
         await reply("⏳ Enhancing image to 8K quality...");
 
-        const result = await dy_scrap.remini(media);
+        // ✅ Send buffer directly to API
+        const result = await dy_scrap.remini(buffer);
         if (!result?.url) return await reply("❌ Failed to enhance image!");
 
-        await conn.sendMessage(from, { image: { url: result.url }, caption: "✅ *Enhanced to 8K HD!*" }, { quoted: mek });
+        await conn.sendMessage(
+            from,
+            { image: { url: result.url }, caption: "✅ *Enhanced to 8K HD!*" },
+            { quoted: mek }
+        );
+
         await conn.sendMessage(from, { react: { text: '📸', key: mek.key } });
 
     } catch (error) {
@@ -54,13 +61,20 @@ cmd({
             return await reply("❌ Please reply to an image to remove background.");
         }
 
-        const media = await conn.downloadAndSaveMediaMessage(imageMsg);
+        // ✅ Download as buffer instead of saving file
+        const buffer = await conn.downloadMediaMessage(imageMsg);
         await reply("⏳ Removing background...");
 
-        const result = await dy_scrap.removebg(media);
+        // ✅ Send buffer to removebg function
+        const result = await dy_scrap.removebg(buffer);
         if (!result?.url) return await reply("❌ Failed to remove background!");
 
-        await conn.sendMessage(from, { image: { url: result.url }, caption: "✅ *Background Removed Successfully!*" }, { quoted: mek });
+        await conn.sendMessage(
+            from,
+            { image: { url: result.url }, caption: "✅ *Background Removed Successfully!*" },
+            { quoted: mek }
+        );
+
         await conn.sendMessage(from, { react: { text: '✨', key: mek.key } });
 
     } catch (error) {
