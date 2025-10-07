@@ -94,7 +94,7 @@ cmd({
 });
 
 
-// 🎨 Command: cartoon (AI Cartoon Filter)
+// 🎨 Command: cartoon (AI Cartoon Filter - public model)
 cmd({
     pattern: "cartoon",
     alias: ["anime", "toonify"],
@@ -117,18 +117,23 @@ cmd({
         // Download replied image
         const buffer = await conn.downloadMediaMessage(imageMsg);
 
-        // Upload buffer to free HuggingFace cartoonify API
+        // Upload buffer to HuggingFace Cartoonize API (public model)
         const form = new FormData();
-        form.append("image_file", buffer, "cartoon.jpg");
+        form.append("file", buffer, "cartoon.jpg");
 
-        const { data } = await axios.post("https://api-inference.huggingface.co/models/lllyasviel/ControlNet", form, {
-            headers: {
-                Authorization: "Bearer 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", // Free HuggingFace token
-                ...form.getHeaders(),
-            },
-            responseType: "arraybuffer",
-        });
+        const { data } = await axios.post(
+            "https://api-inference.huggingface.co/models/hustvl/cartoonize",
+            form,
+            {
+                headers: {
+                    Authorization: "Bearer hf_token_placeholder", // Optional token, public model works without it
+                    ...form.getHeaders(),
+                },
+                responseType: "arraybuffer",
+            }
+        );
 
+        // Send cartoon image
         await conn.sendMessage(
             from,
             { image: data, caption: "✅ *Cartoon Style Applied!*" },
