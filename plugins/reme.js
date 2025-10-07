@@ -1,6 +1,9 @@
 const { cmd } = require('../command');
 const DY_SCRAP = require('@dark-yasiya/scrap');
 const dy_scrap = new DY_SCRAP();
+const axios = require("axios");
+const FormData = require("form-data");
+
 
 // 📸 Command: remini (HD Enhancer)
 cmd({
@@ -20,11 +23,10 @@ cmd({
             return await reply("❌ Please reply to an image to enhance it (8K HD).");
         }
 
-        // ✅ Download image as Buffer instead of file path
         const buffer = await conn.downloadMediaMessage(imageMsg);
         await reply("⏳ Enhancing image to 8K quality...");
 
-        // ✅ Send buffer directly to API
+        // ✅ Use Dark-Yasiya Scrap API for remini
         const result = await dy_scrap.remini(buffer);
         if (!result?.url) return await reply("❌ Failed to enhance image!");
 
@@ -61,24 +63,33 @@ cmd({
             return await reply("❌ Please reply to an image to remove background.");
         }
 
-        // ✅ Download as buffer instead of saving file
+        // ✅ Download image buffer
         const buffer = await conn.downloadMediaMessage(imageMsg);
         await reply("⏳ Removing background...");
 
-        // ✅ Send buffer to removebg function
-        const result = await dy_scrap.removebg(buffer);
-        if (!result?.url) return await reply("❌ Failed to remove background!");
+        // ✅ Use Remove.bg official API with your key
+        const form = new FormData();
+        form.append("image_file", buffer, "input.jpg");
+        form.append("size", "auto");
+
+        const { data } = await axios.post("https://api.remove.bg/v1.0/removebg", form, {
+            headers: {
+                "X-Api-Key": "AS2LjSJAGVUjjCw2tjp4LkNW", // ✅ Your RemoveBG API Key
+                ...form.getHeaders(),
+            },
+            responseType: "arraybuffer",
+        });
 
         await conn.sendMessage(
             from,
-            { image: { url: result.url }, caption: "✅ *Background Removed Successfully!*" },
+            { image: data, caption: "✅ *Background Removed Successfully!*" },
             { quoted: mek }
         );
 
         await conn.sendMessage(from, { react: { text: '✨', key: mek.key } });
 
     } catch (error) {
-        console.error("RemoveBG Error:", error);
+        console.error("RemoveBG Error:", error.response?.data || error.message);
         await reply(`❌ *Error removing background:* ${error.message || "Unknown error"}`);
     }
 });
