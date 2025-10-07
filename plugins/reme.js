@@ -63,18 +63,17 @@ cmd({
             return await reply("❌ Please reply to an image to remove background.");
         }
 
-        // ✅ Download image buffer
         const buffer = await conn.downloadMediaMessage(imageMsg);
         await reply("⏳ Removing background...");
 
-        // ✅ Use Remove.bg official API with your key
+        // ✅ Remove.bg API call with your key
         const form = new FormData();
         form.append("image_file", buffer, "input.jpg");
         form.append("size", "auto");
 
         const { data } = await axios.post("https://api.remove.bg/v1.0/removebg", form, {
             headers: {
-                "X-Api-Key": "AS2LjSJAGVUjjCw2tjp4LkNW", // ✅ Your RemoveBG API Key
+                "X-Api-Key": "AS2LjSJAGVUjjCw2tjp4LkNW",
                 ...form.getHeaders(),
             },
             responseType: "arraybuffer",
@@ -91,5 +90,55 @@ cmd({
     } catch (error) {
         console.error("RemoveBG Error:", error.response?.data || error.message);
         await reply(`❌ *Error removing background:* ${error.message || "Unknown error"}`);
+    }
+});
+
+
+// 🎨 Command: cartoon (AI Cartoon Filter)
+cmd({
+    pattern: "cartoon",
+    alias: ["anime", "toonify"],
+    react: "🎨",
+    desc: "Turn image into cartoon/anime style",
+    category: "tools",
+    use: ".cartoon (reply image)",
+    filename: __filename
+}, async (conn, m, mek, { from, reply }) => {
+    try {
+        const quoted = mek.message?.extendedTextMessage?.contextInfo?.quotedMessage;
+        const imageMsg = quoted?.imageMessage;
+
+        if (!imageMsg) {
+            return await reply("❌ Please reply to an image to turn it into cartoon style.");
+        }
+
+        await reply("⏳ Turning image into cartoon/anime style...");
+
+        // Download replied image
+        const buffer = await conn.downloadMediaMessage(imageMsg);
+
+        // Upload buffer to free HuggingFace cartoonify API
+        const form = new FormData();
+        form.append("image_file", buffer, "cartoon.jpg");
+
+        const { data } = await axios.post("https://api-inference.huggingface.co/models/lllyasviel/ControlNet", form, {
+            headers: {
+                Authorization: "Bearer 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", // Free HuggingFace token
+                ...form.getHeaders(),
+            },
+            responseType: "arraybuffer",
+        });
+
+        await conn.sendMessage(
+            from,
+            { image: data, caption: "✅ *Cartoon Style Applied!*" },
+            { quoted: mek }
+        );
+
+        await conn.sendMessage(from, { react: { text: '🎨', key: mek.key } });
+
+    } catch (error) {
+        console.error("Cartoon Error:", error.message);
+        await reply(`❌ *Error converting image:* ${error.message || "Unknown error"}`);
     }
 });
