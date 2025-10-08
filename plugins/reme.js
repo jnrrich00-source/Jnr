@@ -71,7 +71,7 @@ cmd({
 
         const { data } = await axios.post("https://api.remove.bg/v1.0/removebg", form, {
             headers: {
-                "X-Api-Key": "AS2LjSJAGVUjjCw2tjp4LkNW", // Your RemoveBG API Key
+                "X-Api-Key": "3VHmWLKeioVRWWsMhsv8ZAz6", // Your RemoveBG API Key
                 ...form.getHeaders(),
             },
             responseType: "arraybuffer",
