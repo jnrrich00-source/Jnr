@@ -1,6 +1,7 @@
 const config = require('../config');
 const { cmd } = require('../command');
 const yts = require('yt-search');
+const fetch = require('node-fetch'); // Ensure this line exists if not globally available
 
 cmd({
     pattern: "video2",
@@ -15,39 +16,37 @@ cmd({
         if (!q) return await reply("❌ Please provide a video name or YouTube URL!");
 
         let videoUrl, title;
-        
-        // Check if it's a URL
+
         if (q.match(/(youtube\.com|youtu\.be)/)) {
             videoUrl = q;
-            const videoInfo = await yts({ videoId: q.split(/[=/]/).pop() });
-            title = videoInfo.title;
+            title = "YouTube Video";
         } else {
-            // Search YouTube
             const search = await yts(q);
             if (!search.videos.length) return await reply("❌ No results found!");
             videoUrl = search.videos[0].url;
             title = search.videos[0].title;
         }
 
-        await reply("⏳ Downloading video...");
+        await reply("⏳ Downloading video... Please wait.");
 
-        // Use API to get video
         const apiUrl = `https://apis.davidcyriltech.my.id/download/ytmp4?url=${encodeURIComponent(videoUrl)}`;
         const response = await fetch(apiUrl);
+        if (!response.ok) throw new Error(`API Error: ${response.status}`);
         const data = await response.json();
 
-        if (!data.success) return await reply("❌ Failed to download video!");
+        if (!data.result || !data.result.download_url)
+            return await reply("❌ Failed to get video download link!");
 
         await conn.sendMessage(from, {
             video: { url: data.result.download_url },
             mimetype: 'video/mp4',
-            caption: `*${title}*`
+            caption: `🎬 *${title.substring(0, 60)}*`
         }, { quoted: mek });
 
-        await reply(`✅ *${title}* downloaded successfully!`);
+        await reply(`✅ Video sent successfully: ${title}`);
 
     } catch (error) {
-        console.error(error);
+        console.error("Video Download Error:", error);
         await reply(`❌ Error: ${error.message}`);
     }
 });
