@@ -1,13 +1,14 @@
+
 {
   "name": "DML-MD",
   "version": "5.0.0",
-  "description": "A Javascript bot Created Dml",
+  "description": "A WhatsApp bot Created by Dml",
   "main": "index.js",
   "scripts": {
-    "start": "pm2-runtime index.js --name Dml"
+    "start": "pm2-runtime index.js --name DML-MD"
   },
   "dependencies": {
-    "@whiskeysockets/baileys": "npm:baileys@6.7.18",
+    "@whiskeysockets/baileys": "github:EdderBot02/bail",
     "@adiwajshing/keyed-db": "^0.2.4",
     "@dark-yasiya/yt-dl.js": "1.0.5",
     "@ffmpeg-installer/ffmpeg": "^1.1.0",
