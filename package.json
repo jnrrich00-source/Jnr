@@ -1,8 +1,7 @@
 {
   "name": "DML-MD",
   "version": "5.0.0",
-  "description": "A WhatsApp Assistant Developed by Dml
-",
+  "description": "A WhatsApp Assistant Developed byDml",
   "main": "index.js",
   "engines": {
     "node": ">=20.x",
