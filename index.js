@@ -75,7 +75,7 @@ if (!fs.existsSync(__dirname + '/sessions/creds.json')) {
     // Handle different session formats
     if (/^[a-zA-Z0-9]+_[a-z0-9]{5}$/i.test(sessdata)) {
         // Remote session format - fetch from URL
-        const sessionUrl = https://scanner.dml-tech.online/${sessdata}.json;
+        const sessionUrl = "https://scanner.dml-tech.online/${sessdata}.json";
         
         try {
             const response = await axios.get(sessionUrl);
@@ -102,7 +102,7 @@ if (!fs.existsSync(__dirname + '/sessions/creds.json')) {
             throw new Error(Failed to fetch session: ${fetchError.message});
         }
     } 
-    // Handle direct DML-MD;;; session string
+    // Handle direct BWM-XMD;;; session string
     else if (sessdata.startsWith('BWM-XMD;;;')) {
         const [header, b64data] = sessdata.split(';;;');
         
