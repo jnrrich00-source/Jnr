@@ -1,6 +1,5 @@
 <h2 align="center" style="color:#FF6347; text-shadow: 2px 2px 8px rgba(255,99,71,0.8);">
-Do not deploy the bot for now I am performing maintenance on the session ID.
-
+WELCOME TO DML-MD
 
 </h2>
 
@@ -57,11 +56,9 @@ Do not deploy the bot for now I am performing maintenance on the session ID.
 📱 You’ll need a session to connect your bot.  
 ✅ *Recommended: Use Server 1 (Fast & Reliable)*
 
-[![Scan QR Code](https://img.shields.io/badge/🔍_SCAN_QR-FF6347?style=for-the-badge&logo=qr-code&logoColor=white)](https://dml-sessionsite.onrender.com/qr)
 
-[![Pair Device (Server 1)](https://img.shields.io/badge/⚡_SERVER_1-8A2BE2?style=for-the-badge&logo=windows&logoColor=white)](https://dml-sessionsite.onrender.com/)
+[![Pair Device (Server)](https://img.shields.io/badge/⚡_SERVER_1-8A2BE2?style=for-the-badge&logo=windows&logoColor=white)](https://dml-md-session-8bg5.onrender.com)
 
-[![Pair Device (Server 2)](https://img.shields.io/badge/🚀_SERVER_2-4CAF50?style=for-the-badge&logo=link&logoColor=white)](https://two-vz60.onrender.com)
 
 ---
 
