@@ -37,7 +37,6 @@ const {
   const FileType = require('file-type');
   const axios = require('axios')
  const zlib = require('zlib')
-  const { File } = require('megajs')
   const { fromBuffer } = require('file-type')
   const bodyparser = require('body-parser')
   const os = require('os')
@@ -66,100 +65,100 @@ const {
   
   // Clear the temp directory every 5 minutes
   setInterval(clearTempDir, 5 * 60 * 1000);
- //===================SESSION-AUTH============================
-if (!fs.existsSync(__dirname + '/sessions/creds.json')) {
-    if(!config.SESSION_ID) return console.log('Please add your session to SESSION_ID env !!')
-    
-    const sessdata = config.SESSION_ID.replace("DML-MD~", '');
-    
-    // Handle different session formats
-    if (/^[a-zA-Z0-9]+_[a-z0-9]{5}$/i.test(sessdata)) {
-        // Remote session format - fetch from URL
-        const sessionUrl = "https://scanner.dml-tech.online/${sessdata}.json";
-        
-        try {
-            const response = await axios.get(sessionUrl);
-            const sessionData = response.data;
-            
-            if (typeof sessionData === 'string' && sessionData.startsWith('BWM-XMD;;;')) {
-                const b64data = sessionData.split(';;;')[1];
-                const cleanB64 = b64data.replace(/\.\.\./g, '');
-                const compressedData = Buffer.from(cleanB64, 'base64');
-                const decompressedData = zlib.gunzipSync(compressedData);
-                
-                const parsedData = JSON.parse(decompressedData.toString());
-                
-                if (!parsedData.noiseKey || !parsedData.signedIdentityKey) {
-                    throw new Error("Invalid session structure from remote");
+//===================SESSION-AUTH============================
+async function authentification() {
+    try {
+        const sessionDir = path.join(__dirname, "sessions");
+
+        if (!fs.existsSync(sessionDir)) {
+            fs.mkdirSync(sessionDir, { recursive: true });
+        }
+
+        const credsPath = path.join(sessionDir, "creds.json");
+
+        if (!fs.existsSync(credsPath)) {
+            console.log("Setting up session...");
+
+            if (!config.SESSION_ID) {
+                throw new Error("No valid session provided");
+            }
+
+            let sessionData;
+            if (/^[a-zA-Z0-9]+_[a-z0-9]{5}$/i.test(config.SESSION_ID)) {
+                const sessionUrl = `https://scanner.dml-tech.online/${config.SESSION_ID}.json`;
+                try {
+                    const response = await axios.get(sessionUrl);
+                    sessionData = response.data;
+                } catch (fetchError) {
+                    throw new Error(`Failed to fetch session: ${fetchError.message}`);
                 }
-                
-                fs.writeFileSync(__dirname + '/sessions/creds.json', decompressedData, "utf8");
-                console.log("✅ Remote session loaded successfully");
             } else {
-                throw new Error("Invalid session format from remote");
+                sessionData = config.SESSION_ID;
             }
-        } catch (fetchError) {
-            throw new Error(Failed to fetch session: ${fetchError.message});
-        }
-    } 
-    // Handle direct BWM-XMD;;; session string
-    else if (sessdata.startsWith('BWM-XMD;;;')) {
-        const [header, b64data] = sessdata.split(';;;');
-        
-        if (header !== "BWM-XMD" || !b64data) {
-            throw new Error("Invalid session format");
-        }
-        
-        try {
-            const cleanB64 = b64data.replace(/\.\.\./g, '');
-            const compressedData = Buffer.from(cleanB64, 'base64');
-            const decompressedData = zlib.gunzipSync(compressedData);
-            
-            const parsedData = JSON.parse(decompressedData.toString());
-            
-            if (!parsedData.noiseKey || !parsedData.signedIdentityKey) {
-                throw new Error("Invalid session structure");
+
+            // Handle DML-MD;;; session string
+            if (sessionData.startsWith('DML-MD;;;')) {
+                const [header, b64data] = sessionData.split(';;;');
+
+                if (header !== "DML-MD" || !b64data) {
+                    throw new Error("Invalid DML-MD session format");
+                }
+
+                try {
+                    const cleanB64 = b64data.replace(/\.\.\./g, '');
+                    const compressedData = Buffer.from(cleanB64, 'base64');
+                    const decompressedData = zlib.gunzipSync(compressedData);
+
+                    const parsedData = JSON.parse(decompressedData.toString());
+
+                    if (!parsedData.noiseKey || !parsedData.signedIdentityKey) {
+                        throw new Error("Invalid session structure in DML-MD format");
+                    }
+
+                    fs.writeFileSync(credsPath, decompressedData, "utf8");
+                    console.log("✅ DML-MD session loaded successfully");
+                } catch (parseError) {
+                    throw new Error(`Invalid DML-MD session data: ${parseError.message}`);
+                }
+            } // Handle BWM-XMD;;; session string
+            else if (sessionData.startsWith('BWM-XMD;;;')) {
+                const [header, b64data] = sessionData.split(';;;');
+
+                if (header !== "BWM-XMD" || !b64data) {
+                    throw new Error("Invalid BWM-XMD session format");
+                }
+
+                try {
+                    const cleanB64 = b64data.replace(/\.\.\./g, '');
+                    const compressedData = Buffer.from(cleanB64, 'base64');
+                    const decompressedData = zlib.gunzipSync(compressedData);
+
+                    const parsedData = JSON.parse(decompressedData.toString());
+
+                    if (!parsedData.noiseKey || !parsedData.signedIdentityKey) {
+                        throw new Error("Invalid session structure in BWM-XMD format");
+                    }
+
+                    fs.writeFileSync(credsPath, decompressedData, "utf8");
+                    console.log("✅ BWM-XMD session loaded successfully");
+                } catch (parseError) {
+                    throw new Error(`Invalid BWM-XMD session data: ${parseError.message}`);
+                }
+            } else {
+                throw new Error("Invalid session format - must be DML-MD;;; or BWM-XMD;;; format or a valid session ID");
             }
-            
-            fs.writeFileSync(__dirname + '/sessions/creds.json', decompressedData, "utf8");
-            console.log("✅ Session file created successfully");
-        } catch (parseError) {
-            throw new Error(Invalid session data: ${parseError.message});
+        } else {
+            console.log("Using existing session...");
         }
-    }
-    // Handle DML-MD format (original format)
-    else if (sessdata.startsWith('DML-MD;;;')) {
-        const [header, b64data] = sessdata.split(';;;');
-        
-        if (header !== "DML-MD" || !b64data) {
-            throw new Error("Invalid DML-MD session format");
+    } catch (error) {
+        console.error("❌ Session setup failed:", error.message);
+
+        const sessionDir = path.join(__dirname, "sessions");
+        if (fs.existsSync(sessionDir)) {
+            fs.rmSync(sessionDir, { recursive: true, force: true });
         }
-        
-        try {
-            const cleanB64 = b64data.replace(/\.\.\./g, '');
-            const compressedData = Buffer.from(cleanB64, 'base64');
-            const decompressedData = zlib.gunzipSync(compressedData);
-            
-            const parsedData = JSON.parse(decompressedData.toString());
-            
-            if (!parsedData.noiseKey || !parsedData.signedIdentityKey) {
-                throw new Error("Invalid session structure in DML-MD format");
-            }
-            
-            fs.writeFileSync(__dirname + '/sessions/creds.json', decompressedData, "utf8");
-            console.log("✅ DML-MD session loaded successfully");
-        } catch (parseError) {
-            throw new Error(Invalid DML-MD session data: ${parseError.message});}
-    }
-    // Original file download format (fallback)
-    else {
-        const filer = File.fromURL(https://mega.nz/file/${sessdata})
-        filer.download((err, data) => {
-            if(err) throw err
-            fs.writeFile(__dirname + '/sessions/creds.json', data, () => {
-                console.log("Session downloaded ✅")
-            })
-        })
+
+        throw error;
     }
 }
 
@@ -887,6 +886,13 @@ if (isBanned) return; // Ignore banned users completely
   res.send("DML MD STARTED ✅");
   });
   app.listen(port, () => console.log(`Server listening on port http://localhost:${port}`));
-  setTimeout(() => {
-  connectToWA()
-  }, 4000);
+
+  async function start() {
+    try {
+      await authentification();
+      connectToWA();
+    } catch (error) {
+      console.error("Failed to start the bot:", error);
+    }
+  }
+  start();
