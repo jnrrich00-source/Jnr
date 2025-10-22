@@ -53,8 +53,7 @@ WELCOME TO DML-MD
 
 ### 🔹 Step 2: Generate Session ID
 
-📱 You’ll need a session to connect your bot.  
-✅ *Recommended: Use Server 1 (Fast & Reliable)*
+♻ You’ll need a session to connect your bot.  
 
 
 [![Pair Device (Server)](https://img.shields.io/badge/⚡_SERVER_1-8A2BE2?style=for-the-badge&logo=windows&logoColor=white)](https://dml-md-session-8bg5.onrender.com)
