@@ -6,7 +6,7 @@ cmd({
     alias: ["speed","pong"],use: '.ping',
     desc: "Check bot's response time.",
     category: "main",
-    react: "🚀",
+    react: "⚡",
     filename: __filename
 },
 async (conn, mek, m, { from, quoted, sender, reply }) => {
@@ -32,7 +32,13 @@ async (conn, mek, m, { from, quoted, sender, reply }) => {
         const end = new Date().getTime();
         const responseTime = (end - start) / 1000;
 
-        const text = `> *DML-MD SPEED: ${responseTime.toFixed(2)}ms ${reactionEmoji}*`;
+        const text = `
+╔════❰ 𝗗𝗠𝗟-𝗠𝗗 𝗦𝗣𝗘𝗘𝗗 ❱════╗
+║
+║ ⚡ *Response Time:* ${responseTime.toFixed(2)}ms ${reactionEmoji}
+║
+╚═════════════════════╝
+`;
 
         await conn.sendMessage(from, {
             text,
@@ -60,7 +66,7 @@ cmd({
     pattern: "ping2",
     desc: "Check bot's response time.",
     category: "main",
-    react: "⤵",
+    react: "♻",
     filename: __filename
 },
 async (conn, mek, m, { from, quoted, body, isCmd, command, args, q, isGroup, sender, senderNumber, botNumber2, botNumber, pushname, isMe, isOwner, groupMetadata, groupName, participants, groupAdmins, isBotAdmins, isAdmins, reply }) => {
@@ -69,7 +75,7 @@ async (conn, mek, m, { from, quoted, body, isCmd, command, args, q, isGroup, sen
         const message = await conn.sendMessage(from, { text: '*PINGING...*' })
         const endTime = Date.now()
         const ping = endTime - startTime
-        await conn.sendMessage(from, { text: `*💥 DML-MD SPEED : ${ping}ms*` }, { quoted: message })
+        await conn.sendMessage(from, { text: `*🔥 DML-MD SPEED : ${ping}ms*` }, { quoted: message })
     } catch (e) {
         console.log(e)
         reply(`${e}`)
